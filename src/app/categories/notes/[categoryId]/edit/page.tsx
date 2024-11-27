@@ -39,7 +39,8 @@ const EditCategoryPage = ({ params }: { params: { categoryId: string } }) => {
   useEffect(() => {
     const fetchCategory = async () => {
       const API_URL = `https://notesbackend-murex.vercel.app/api/categories/${categoryId}`;
-      const token = localStorage.getItem("token");
+           const token = typeof window !== 'undefined' ? localStorage.getItem("token") : null;
+
 
       try {
         const { data } = await axios.get(API_URL, {
@@ -69,7 +70,8 @@ const EditCategoryPage = ({ params }: { params: { categoryId: string } }) => {
     { resetForm }: any
   ) => {
     const API_URL = `https://notesbackend-murex.vercel.app/api/categories/${categoryId}`;
-    const token = localStorage.getItem("token");
+         const token = typeof window !== 'undefined' ? localStorage.getItem("token") : null;
+
 
     try {
       await axios.put(
@@ -100,6 +102,7 @@ const EditCategoryPage = ({ params }: { params: { categoryId: string } }) => {
         initialValues={{
           name: category.name || "",
           icon: category.icon || "",
+          
         }}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}

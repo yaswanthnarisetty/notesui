@@ -29,11 +29,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#E7E4F1]`}>
-      <AuthProvider>
           {/* Include Header as part of the layout */}
           <Header />
           {children}
-        </AuthProvider>
       </body>
     </html>
   );

@@ -39,7 +39,8 @@ const NotesPage = ({ params }: { params: { categoryId: string } }) => {
     setError(null);
 
     const API_URL = `https://notesbackend-murex.vercel.app/api/notes/category/${categoryId}`;
-    const token = localStorage.getItem("token");
+             const token = typeof window !== 'undefined' ? localStorage.getItem("token") : null;
+
     const singleCategory = categories.find((category) => category._id === categoryId);
     setSingleCategory(singleCategory);
 
@@ -64,7 +65,8 @@ const NotesPage = ({ params }: { params: { categoryId: string } }) => {
 
   const fetchCategories = async () => {
     const API_URL = `https://notesbackend-murex.vercel.app/api/categories`;
-    const token = localStorage.getItem("token");
+             const token = typeof window !== 'undefined' ? localStorage.getItem("token") : null;
+
 
     try {
       const { data } = await axios.get(API_URL, {
@@ -83,7 +85,8 @@ const NotesPage = ({ params }: { params: { categoryId: string } }) => {
 
   const handleCreateNote = async (values: any, { resetForm }: any) => {
     const API_URL = `https://notesbackend-murex.vercel.app/api/notes`;
-    const token = localStorage.getItem("token");
+             const token = typeof window !== 'undefined' ? localStorage.getItem("token") : null;
+
 
     const content = JSON.stringify(
       convertToRaw(editorState.getCurrentContent())
@@ -112,7 +115,8 @@ const NotesPage = ({ params }: { params: { categoryId: string } }) => {
     if (!noteToDelete) return;
 
     const API_URL = `https://notesbackend-murex.vercel.app/api/notes/${noteToDelete._id}`;
-    const token = localStorage.getItem("token");
+             const token = typeof window !== 'undefined' ? localStorage.getItem("token") : null;
+
 
     try {
       await axios.delete(API_URL, {
@@ -205,7 +209,84 @@ const NotesPage = ({ params }: { params: { categoryId: string } }) => {
         <div className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center">
           <div className="bg-white p-6 rounded-md w-full max-w-fit">
             <h3 className="text-lg font-semibold mb-4">Create New Note</h3>
-            {/* Formik form for creating notes */}
+            <Formik
+              initialValues={{
+                name: "",
+                categoryId: categoryId || "",
+                isFavorite: false,
+              }}
+              validationSchema={Yup.object({
+                name: Yup.string().required("Name is required"),
+                categoryId: Yup.string().required("Category is required"),
+              })}
+              onSubmit={handleCreateNote}
+            >
+              {({ values, handleChange }) => (
+                <Form>
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium mb-2">
+                      Name
+                    </label>
+                    <Field
+                      type="text"
+                      name="name"
+                      className="w-full border rounded p-2"
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium mb-2">
+                      Content
+                    </label>
+                    <Editor
+                      editorState={editorState}
+                      onEditorStateChange={setEditorState}
+                      wrapperClassName="border rounded"
+                      editorClassName="p-2"
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium mb-2">
+                      Category
+                    </label>
+                    <Field
+                      as="select"
+                      name="categoryId"
+                      className="w-full border rounded p-2"
+                    >
+                      <option value="">Select a category</option>
+                      {categories.map((cat) => (
+                        <option key={cat._id} value={cat._id}>
+                          {cat.name}
+                        </option>
+                      ))}
+                    </Field>
+                  </div>
+                  <div className="mb-4 flex items-center">
+                    <Field
+                      type="checkbox"
+                      name="isFavorite"
+                      className="mr-2"
+                    />
+                    <label>Mark as Favorite</label>
+                  </div>
+                  <div className="flex justify-end gap-4">
+                    <button
+                      type="button"
+                      onClick={() => setPopupOpen(false)}
+                      className="bg-gray-300 px-4 py-2 rounded"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700"
+                    >
+                      Save
+                    </button>
+                  </div>
+                </Form>
+              )}
+            </Formik>
           </div>
         </div>
       )}

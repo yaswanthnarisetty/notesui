@@ -24,7 +24,8 @@ const EditNotePage = ({ params }: { params: { noteId: string } }) => {
       setError(null);
 
       const API_URL = `https://notesbackend-murex.vercel.app/notes/${noteId}`;
-      const token = localStorage.getItem("token");
+           const token = typeof window !== 'undefined' ? localStorage.getItem("token") : null;
+
 
       if (!token) {
         setError("Authorization token is missing.");
@@ -53,7 +54,8 @@ const EditNotePage = ({ params }: { params: { noteId: string } }) => {
 
     const fetchCategories = async () => {
       const API_URL = `https://notesbackend-murex.vercel.app/api/categories`;
-      const token = localStorage.getItem("token");
+           const token = typeof window !== 'undefined' ? localStorage.getItem("token") : null;
+
 
       try {
         const { data } = await axios.get(API_URL, {
@@ -81,8 +83,11 @@ const EditNotePage = ({ params }: { params: { noteId: string } }) => {
       name: Yup.string().required("Name is required."),
     }),
     onSubmit: async (values) => {
+        console.log("🚀 ~ onSubmit: ~ values:", values)
+        
       const API_URL = `https://notesbackend-murex.vercel.app/api/notes/${noteId}`;
-      const token = localStorage.getItem("token");
+           const token = typeof window !== 'undefined' ? localStorage.getItem("token") : null;
+
 
       if (!token) {
         setError("Authorization token is missing.");
@@ -98,6 +103,7 @@ const EditNotePage = ({ params }: { params: { noteId: string } }) => {
           ...values,
           content: updatedContent,
         };
+        console.log("🚀 ~ onSubmit: ~ payload:", payload)
 
         await axios.put(API_URL, payload, {
           headers: {
@@ -113,6 +119,7 @@ const EditNotePage = ({ params }: { params: { noteId: string } }) => {
       }
     },
   });
+        
 
   const handleEditorStateChange = (state: EditorState) => {
     setEditorState(state);

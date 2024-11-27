@@ -2,7 +2,6 @@
 import { useState } from "react";
 import { registerUser } from "../../utils/api";
 import { useRouter } from "next/navigation";
-
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -16,7 +15,7 @@ const Register = () => {
 
     try {
       const response = await registerUser({ name, email, password });
-      localStorage.setItem("token", response.auth); // Save the JWT token
+      const token = typeof window !== 'undefined' ? localStorage.setItem("token", response.auth) : null; // Save the JWT token
       alert("Registration successful!");
       router.push("/categories"); // Redirect to dashboard or home
     } catch (err: any) {

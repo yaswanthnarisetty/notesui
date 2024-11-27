@@ -5,18 +5,18 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { loginUser } from "@/utils/api";
 
+
 const Login = () => {
   const router = useRouter();
 
   // Check if the user is already logged in
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      
-      router.push("/categories"); // Redirect to categories page if logged in
-    }
+ useEffect(() => {
+           const token = typeof window !== 'undefined' ? localStorage.getItem("token") : null;
+      if (token) {
+        router.push("/categories"); // Redirect to categories page if logged in
+      }
+    
   }, [router]);
-
   // Formik setup
   const formik = useFormik({
     initialValues: {
@@ -32,7 +32,7 @@ const Login = () => {
         const response = await loginUser(values.email, values.password);
         if (response.auth) {
           console.log("resp", response);
-          localStorage.setItem("token", response.auth); // Save the JWT token
+          const token = typeof window !== 'undefined' ? localStorage.setItem("token", response.auth) : null; // Save the JWT token
           window.location.href = "/categories";
         } else {
           setErrors({ email: response.message || "Login failed" });

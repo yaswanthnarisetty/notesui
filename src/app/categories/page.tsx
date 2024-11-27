@@ -42,7 +42,8 @@ const CategoriesPage: React.FC = () => {
       setLoading(true);
       setError(null);
       const API_URL = "https://notesbackend-murex.vercel.app/api/categories";
-      const token = localStorage.getItem("token"); // Retrieve token from localStorage
+           const token = typeof window !== 'undefined' ? localStorage.getItem("token") : null;
+ // Retrieve token from localStorage
 
       if (!token) {
         setError("Authorization token is missing.");
@@ -83,7 +84,8 @@ const CategoriesPage: React.FC = () => {
     setError(null);
 
     try {
-      const token = localStorage.getItem("token");
+           const token = typeof window !== 'undefined' ? localStorage.getItem("token") : null;
+
       if (!token) {
         setError("Authorization token is missing.");
         setLoading(false);

@@ -9,7 +9,8 @@ const Header = () => {
   useEffect(() => {
     // Function to check if the token exists in localStorage
     const checkLoginStatus = () => {
-      const token = localStorage.getItem("token");
+           const token = typeof window !== 'undefined' ? localStorage.getItem("token") : null;
+
       setIsLoggedIn(!!token); // Update state based on token presence
     };
 
@@ -27,7 +28,8 @@ const Header = () => {
   useEffect(() => {
     // Detect navigation and recheck login status
     const handleRouteChange = () => {
-      const token = localStorage.getItem("token");
+           const token = typeof window !== 'undefined' ? localStorage.getItem("token") : null;
+
       setIsLoggedIn(!!token);
     };
 
@@ -39,7 +41,7 @@ const Header = () => {
   }, [router.events]);
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
+    const token = typeof window !== 'undefined' ? localStorage.removeItem("token") : null; // Save the JWT token
     setIsLoggedIn(false);
     router.push("/"); // Redirect to home or login page
   };
