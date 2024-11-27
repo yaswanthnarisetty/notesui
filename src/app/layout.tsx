@@ -1,6 +1,9 @@
+// app/layout.tsx or your RootLayout file
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import Header from "@/containers/header";  // Import the Header component
+import { AuthProvider } from "@/containers/authContext";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -25,10 +28,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#E7E4F1]`}>
+      <AuthProvider>
+          {/* Include Header as part of the layout */}
+          <Header />
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );
