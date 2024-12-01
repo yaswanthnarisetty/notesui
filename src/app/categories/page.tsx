@@ -8,7 +8,7 @@ import axios from "axios";
 
 import { IconContext } from "react-icons";
 import CategoryCard from "@/components/CategoryCard";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 interface Category {
   _id: string;
