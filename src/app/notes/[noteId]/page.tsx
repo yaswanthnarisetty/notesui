@@ -61,6 +61,7 @@ const NoteDetailsPage = ({ params }: { params: { noteId: string } }) => {
       if (!token) {
         if (isMounted) {
           setError("Authorization token is missing.");
+          router.push("/login")
           setLoading(false);
         }
         return;
@@ -115,6 +116,7 @@ const NoteDetailsPage = ({ params }: { params: { noteId: string } }) => {
 
       if (!token) {
         setError("Authorization token is missing.");
+        router.push("/login")
         return;
       }
 

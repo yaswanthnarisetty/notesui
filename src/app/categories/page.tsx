@@ -3,11 +3,12 @@ import React, { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import Modal from "react-modal";
-import { FaBook, FaPiggyBank, FaBriefcase, FaLock, FaClipboard, FaHeartbeat, FaGlobe, FaPlane, FaTools, FaShoppingCart } from "react-icons/fa";
+import { FaBook, FaPiggyBank, FaBriefcase, FaLock, FaClipboard, FaHeartbeat, FaGlobe, FaPlane, FaTools, FaShoppingCart, FaGlobeAsia } from "react-icons/fa";
 import axios from "axios";
 
 import { IconContext } from "react-icons";
 import CategoryCard from "@/components/CategoryCard";
+import { useRouter } from "next/router";
 
 interface Category {
   _id: string;
@@ -26,7 +27,7 @@ const iconOptions = [
     { label: <FaPlane />, value: "travel", icon: "FaPlane" }, // Travel
     { label: <FaTools />, value: "projects", icon: "FaTools" }, // Projects
     { label: <FaShoppingCart />, value: "shopping", icon: "FaShoppingCart" }, // Shopping
-    { label: <FaClipboard />, value: "others", icon: "FaClipboard" }, // Others
+    { label: <FaGlobeAsia />, value: "others", icon: "FaGlobeAsia" }, // Others
 
   ];
   
@@ -35,6 +36,7 @@ const CategoriesPage: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const router = useRouter()
 
   // Fetch categories on mount
   useEffect(() => {
@@ -47,6 +49,7 @@ const CategoriesPage: React.FC = () => {
 
       if (!token) {
         setError("Authorization token is missing.");
+        router.push("/login")
         setLoading(false);
         return;
       }
@@ -88,6 +91,7 @@ const CategoriesPage: React.FC = () => {
 
       if (!token) {
         setError("Authorization token is missing.");
+        router.push("/login")
         setLoading(false);
         return;
       }
@@ -139,17 +143,6 @@ const CategoriesPage: React.FC = () => {
         {/* Render Categories */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {categories.map((category) => (
-            // <div
-            //   key={category._id}
-            //   className="bg-purple-200 text-center rounded-lg p-4 hover:bg-purple-300"
-            // >
-            //   <div className="text-4xl mb-2">
-            //     {React.createElement(require("react-icons/fa")[category.icon])}
-            //   </div>
-            //   <h3 className="font-medium text-lg">
-            //     {category.name} ({category.notes.length})
-            //   </h3>
-            // </div>
             <CategoryCard
             key={category._id}
             id={category._id}
@@ -214,21 +207,7 @@ const CategoriesPage: React.FC = () => {
                 />
               </div>
 
-              {/* <div className="mb-4">
-                {values.icon && (
-                  <div className="flex items-center">
-                    <IconContext.Provider value={{ size: "2rem" }}>
-                    {
-  iconOptions.find((icon) => icon.icon === values.icon)?.label || (
-    <span className="text-gray-500">No icon selected</span>
-  )
-}
-                    </IconContext.Provider>
-                    <span className="ml-2">Selected Icon</span>
-                  </div>
-                )}
-              </div> */}
-
+           
               {error && (
                 <div className="text-red-500 text-sm mb-4">{error}</div>
               )}

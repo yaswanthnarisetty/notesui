@@ -46,6 +46,7 @@ const NotesPage = ({ params }: { params: { categoryId: string } }) => {
 
     if (!token) {
       setError("Authorization token is missing.");
+      router.push("/login")
       setLoading(false);
       return;
     }

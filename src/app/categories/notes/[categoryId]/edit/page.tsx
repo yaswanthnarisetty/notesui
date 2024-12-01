@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { IconContext } from "react-icons";
-import { FaBook, FaPiggyBank, FaBriefcase, FaLock, FaClipboard, FaHeartbeat, FaGlobe, FaPlane, FaTools, FaShoppingCart } from "react-icons/fa";
+import { FaBook, FaPiggyBank, FaBriefcase, FaLock, FaClipboard, FaHeartbeat, FaGlobe, FaPlane, FaTools, FaShoppingCart, FaGlobeAsia } from "react-icons/fa";
 import axios from "axios";
 
 const iconOptions = [
@@ -18,7 +18,7 @@ const iconOptions = [
     { label: <FaPlane />, value: "travel", icon: "FaPlane" }, // Travel
     { label: <FaTools />, value: "projects", icon: "FaTools" }, // Projects
     { label: <FaShoppingCart />, value: "shopping", icon: "FaShoppingCart" }, // Shopping
-    { label: <FaClipboard />, value: "others", icon: "FaClipboard" }, // Others
+    { label: <FaGlobeAsia />, value: "others", icon: "FaGlobeAsia" }, // Others
 
   ];
   
