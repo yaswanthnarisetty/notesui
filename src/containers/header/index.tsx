@@ -63,11 +63,11 @@ const Header = () => {
                 Features
               </a>
             </li>
-            <li>
+            {/* <li>
               <a href="/pricing" className="hover:underline">
                 Pricing
               </a>
-            </li>
+            </li> */}
             {isLoggedIn && (  <li>
               <a href="/categories" className="hover:underline">
              My Categories

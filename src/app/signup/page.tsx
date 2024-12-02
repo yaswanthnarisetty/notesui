@@ -18,8 +18,13 @@ const Register = () => {
     try {
       const response = await registerUser({ name, email, password });
      // const token = typeof window !== "undefined" ? localStorage.setItem("token", response.auth) : null; // Save the JWT token
-      alert("Registration successful!");
-      router.push("/login"); // Redirect to dashboard or home
+      if(response.auth){
+        alert("Registration successful!");
+        router.push("/login"); // Redirect to dashboard or home
+      }
+      else{
+        alert(response.message)
+      }
     } catch (err: any) {
       setError(err.response?.data?.message || "Registration failed");
     }
