@@ -56,7 +56,7 @@ const Header = () => {
     <div className="w-full h-full sm:py-10">
       <header className="bg-purple-600 text-white p-4">
         <nav className="mx-auto flex justify-between items-center">
-          <h1 className="text-2xl font-bold">SSnote</h1>
+          <h1 className="text-2xl font-bold"><a href="/" className="cursor-pointer">SSnote</a> </h1>
           <ul className="flex space-x-4">
             <li>
               <a href="/features" className="hover:underline">
