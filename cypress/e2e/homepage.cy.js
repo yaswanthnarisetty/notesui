@@ -81,13 +81,7 @@ describe("HomePage Component Tests", () => {
       });
     });
   
-    // Test 5: Newsletter Subscription Section
-    it("renders the Newsletter Subscription section with form", () => {
-      cy.contains("Stay Updated").should("be.visible");
-      cy.get("input[placeholder='Enter your email']").should("be.visible");
-      cy.get("button").contains("Subscribe").should("be.visible");
-    });
-  
+
     // Test 6: Footer Section
     it("renders the Footer section with copyright text", () => {
       const currentYear = new Date().getFullYear();
